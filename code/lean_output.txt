@@ -1,0 +1,13 @@
+Toolchain: leanprover/lean4:v4.33.1
+Mathlib revision: 0df444a360eaa60ab8c11dca51a86af692955474
+Command: lake env lean code/StarCertificates.lean
+
+'StarCertificates.S_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'StarCertificates.S_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'StarCertificates.T3_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'StarCertificates.T2_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'StarCertificates.T1_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'StarCertificates.T0_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'StarCertificates.Sp_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Exit code 0. No errors, warnings or sorry.

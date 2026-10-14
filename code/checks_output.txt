@@ -1,0 +1,36 @@
+[PASS] A1 S equals its certificate (Lemma 4.2, p = 1/2)  14 point evaluations, 26 elementary differences counted with weight
+[PASS] A2 T_3 equals its certificate (Lemma 4.2)  1 elementary differences
+[PASS] A2 T_2 equals its certificate (Lemma 4.2)  9 elementary differences
+[PASS] A2 T_1 equals its certificate (Lemma 4.2)  12 elementary differences
+[PASS] A2 T_0 equals its certificate (Lemma 4.2)  4 elementary differences
+[PASS] A3 T_0 + T_1 + T_2 + T_3 = S (that is, 8 S_{1/2} = S)
+[PASS] A4 every certificate coefficient is a positive integer
+[PASS] B1 pi Q = 0 and pi sums to 1
+[PASS] B2 detailed balance: diag(pi) Q symmetric
+[PASS] B3 right eigenvectors v0, v1, v2 with eigenvalues 0, -b, -(a2+a3+b)
+[PASS] B4 v0, v1, v2 orthogonal in L^2(pi)
+[PASS] B5 spectral form: P_0 = I and dP/dg at 0 = Q
+[PASS] B6 alpha = (pi_2+pi_3) p q [Phi22 - Phi23 - Phi32 + Phi33]  (4.1)
+[PASS] B7 -F'(0) = b (pi_2+pi_3) [Phi11 + p Phi22 + q Phi33 - p(Phi12+Phi21) - q(Phi13+Phi31)]  (4.2)
+[PASS] B8 -F'(0) equals the edge sum of Lemma 3.1
+[PASS] C1 b3 > b2 violates (1.1) at n = 2: P(X_0<=1, X_2<=2) < P(X_0<=1, X_6<=2)  0.316976179857 < 0.319987611481
+[PASS] C2 0 < b2 < mu_1 < b3 < mu_2 (interlacing, strict)  mu_1 = 1.38196601125, mu_2 = 3.61803398875
+[PASS] C3 with b2 > b3 (rates swapped) the same quantity is nonincreasing on t = 0, 0.1, ..., 10
+[PASS] D1 star a2,a3,b2,b3 = (1, 1, 1, 1) (equal return rates): LP gap <= 1e-09  max +1.67e-16
+[PASS] D1 star a2,a3,b2,b3 = (1, 1, 3, 3) (equal return rates): LP gap <= 1e-09  max +1.22e-15
+[PASS] D1 star a2,a3,b2,b3 = (3, 3, 1, 1) (equal return rates): LP gap <= 1e-09  max +4.72e-16
+[PASS] D1 star a2,a3,b2,b3 = (1, 4, 2, 2) (equal return rates): LP gap <= 1e-09  max +9.02e-16
+[PASS] D1 star a2,a3,b2,b3 = (5, 1, 1, 1) (equal return rates): LP gap <= 1e-09  max +5.03e-16
+[PASS] D1 star a2,a3,b2,b3 = (0.2, 3, 0.7, 0.7) (equal return rates): LP gap <= 1e-09  max +3.89e-16
+[PASS] D2 star (1, 1, 2, 1) (b2 > b3, Conjecture 1.4): LP gap <= 1e-09  max +2.22e-16
+[PASS] D2 star (1, 1, 4, 1) (b2 > b3, Conjecture 1.4): LP gap <= 1e-09  max +1.94e-16
+[PASS] D2 star (1, 3, 1.5, 1) (b2 > b3, Conjecture 1.4): LP gap <= 1e-09  max +1.66e-15
+[PASS] D2 star (3, 1, 3, 1) (b2 > b3, Conjecture 1.4): LP gap <= 1e-09  max +4.16e-16
+[PASS] D3 star (1, 1, 1, 2) (b3 > b2, Theorem 1.2): LP gap > 0  max +3.24e-02
+[PASS] D3 star (1, 1, 1, 4) (b3 > b2, Theorem 1.2): LP gap > 0  max +4.59e-02
+[PASS] D4 control: the cyclic chain 1->2->3->1 fails  max +6.13e-02
+[PASS] D5 control: a monotone birth-death chain passes  max +9.19e-16
+[PASS] E1 sign criterion l_1(1) l_1(3) <= 0 agrees with the LP test (n = 3, 4) on 60 random reversible chains  60/60; non-monotone 34, of which 18 pass
+[PASS] E2 refresh chain (double eigenvalue) is stochastically monotone and passes the LP test
+
+ALL PASS

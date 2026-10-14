@@ -1,0 +1,363 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,enumitem,booktabs}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\R}{\mathbb R}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\sm}{\mathrm{sm}}
+\newcommand{\st}{\mathrm{st}}
+
+\hypersetup{pdftitle={Supermodular ordering of speeded-up Markov chains without stochastic monotonicity},pdfauthor={Yitzchak Shmalo}}
+
+\title[Supermodular ordering without stochastic monotonicity]{Supermodular ordering of speeded-up Markov chains without stochastic monotonicity}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{15 October 2026}
+\subjclass[2020]{60J27, 60E15, 60K25}
+\keywords{supermodular order, Markov-modulated arrivals, stochastic monotonicity, time scaling, Ross's conjecture}
+
+\begin{document}
+\begin{abstract}
+For a stationary continuous-time Markov chain $\lambda$ with real values, let $\lambda_c(t)=\lambda(ct)$. Leskel\"a asked whether there is a stationary ergodic chain that is not stochastically monotone but satisfies $\lambda_{c_1}\ge_\sm\lambda_{c_2}$ whenever $c_1\le c_2$, where $\ge_\sm$ is the supermodular order of processes. We show that such chains exist on three states. If $\lambda$ jumps from its smallest value to each of the other two values at arbitrary positive rates and returns from both of them at a common rate, then $\lambda_{c_1}\ge_\sm\lambda_{c_2}$ for all $c_1\le c_2$, while $\lambda$ is not stochastically monotone. The proof reduces monotonicity in each sampling gap to two finite inequalities for the conditional expectations of the test function, and proves them with a coupling and an explicit decomposition into elementary increasing differences. If the largest value returns faster than the middle one, the ordering fails already for the pairs $(\lambda(0),\lambda(t))$. For reversible three-state chains with two distinct nonzero eigenvalues, these pairs decrease in the supermodular order if and only if the slow left eigenvector does not have the same strict sign at the two extreme states, and computations suggest that this condition characterizes the ordering of the whole process.
+\end{abstract}
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Let $\lambda=(\lambda(t))_{t\in\R}$ be a stationary process with values in $\R$ and, for $c>0$, let $\lambda_c(t)=\lambda(ct)$ be the same process run at speed $c$. For processes $X$ and $Y$ write $X\le_\sm Y$ if
+\[
+\E\varphi\bigl(X(t_1),\dots,X(t_n)\bigr)\le\E\varphi\bigl(Y(t_1),\dots,Y(t_n)\bigr)
+\]
+for all $n\ge1$, all $t_1,\dots,t_n\in\R$ and all supermodular $\varphi\colon\R^n\to\R$ for which both expectations exist; $\varphi$ is supermodular if $\varphi(x\vee y)+\varphi(x\wedge y)\ge\varphi(x)+\varphi(y)$ for all $x,y\in\R^n$. The property studied here is
+\begin{equation}\label{eq:prop}
+c_1\le c_2\quad\Longrightarrow\quad\lambda_{c_1}\ge_\sm\lambda_{c_2}.
+\end{equation}
+Property \eqref{eq:prop} comes from queueing theory. Ross's second conjecture \cite{Ros} concerns a single-server queue whose arrivals form a Cox process with intensity $\lambda_c$ and whose service times are independent and identically distributed and independent of the arrivals; it asserts that the mean stationary workload $w(c)$ is nonincreasing in $c$. B\"auerle and Rolski \cite{BR} showed that \eqref{eq:prop} implies this monotonicity when $\lambda\ge0$, the service times have a finite second moment and the queue is stable. Finite-state chains for which $w(c)$ is not monotone are given in \cite{Shm}.
+
+A continuous-time Markov chain on a finite set of reals is \emph{stochastically monotone} if its transition kernel $P_t(x,\cdot)$ is nondecreasing in $x$ in the usual stochastic order for every $t\ge0$. B\"auerle and Rolski \cite{BR} proved \eqref{eq:prop} for every stationary finite-state chain such that both the chain and its time reversal are stochastically monotone. Leskel\"a \cite{Les} remarks that outside stochastically monotone chains little seems to be known, even on three states, and asks (\cite[Problem~3]{Les}; Problem~2 in arXiv:2204.11856):
+
+\begin{quote}
+Does there exist a stationary and ergodic CTMC $\lambda$ which is not stochastically monotone but satisfies \eqref{eq:prop}?
+\end{quote}
+
+We answer this in the affirmative. Throughout, $\lambda$ takes the values $1<2<3$; by Remark~\ref{rem:relabel} below, any values $v_1<v_2<v_3$ give the same results. For $a_2,a_3,b_2,b_3>0$ the \emph{star chain} has generator
+\begin{equation}\label{eq:star}
+Q=\begin{pmatrix}-(a_2+a_3)&a_2&a_3\\ b_2&-b_2&0\\ b_3&0&-b_3\end{pmatrix}:
+\end{equation}
+from the smallest value $1$ it jumps to $2$ at rate $a_2$ and to $3$ at rate $a_3$, and from each of $2$ and $3$ it returns to $1$. It is irreducible and reversible, with stationary law $\pi\propto(1,a_2/b_2,a_3/b_3)$. It is never stochastically monotone: $P_t(1,\{3\})=a_3t+O(t^2)$ while $P_t(2,\{3\})=O(t^2)$ as $t\downarrow0$, since the chain cannot pass from $2$ to $3$ without visiting $1$. Being reversible, it is its own time reversal.
+
+\begin{theorem}\label{thm:main}
+If $b_2=b_3$, the stationary star chain satisfies \eqref{eq:prop} for all $a_2,a_3>0$. In particular there is a stationary ergodic continuous-time Markov chain on three states that is not stochastically monotone and satisfies \eqref{eq:prop}.
+\end{theorem}
+
+By Remark~\ref{rem:relabel}, Theorem~\ref{thm:main} holds for the star chain with any values $0\le v_1<v_2<v_3$ in place of $1,2,3$. By \cite{BR}, in a stable single-server queue with Cox arrivals of intensity $\lambda_c$ and independent and identically distributed service times with finite second moment, independent of the arrivals, the mean stationary workload is then nonincreasing in $c$.
+
+\begin{theorem}\label{thm:fail}
+If $b_3>b_2$, the stationary star chain does not satisfy \eqref{eq:prop}. More precisely, $\Pp(\lambda(0)\le1,\ \lambda(t)\le2)$ is strictly increasing in $t$ for all large $t$, so the pairs $(\lambda(0),\lambda(t))$ are not nonincreasing in $t$ in the supermodular order.
+\end{theorem}
+
+The proof of Theorem~\ref{thm:main} does not follow the route of \cite{BR}, which propagates supermodularity through monotone kernels. For the star chain, conditioning on two coordinates does not preserve supermodularity, and the argument works instead with the exact form of a reversible three-state chain: monotonicity in one sampling gap reduces to two finite inequalities for the conditional expectations of the test function (Lemma~\ref{lem:spectral}). For the star chain with equal return rates, these follow from a description of the chain as a two-state chain whose excursions carry independent labels (Lemma~\ref{lem:coupling}), and an identity that writes the relevant combination of sixteen values of a supermodular function on $\{1,2,3\}^4$ as a sum of elementary increasing differences (Lemma~\ref{lem:certificate}).
+
+The two theorems leave open the star chains with $b_2>b_3$, where the top value returns more slowly than the middle one. For pairs, the whole question is decided by one eigenvector.
+
+\begin{proposition}\label{prop:pairs}
+Let $\lambda$ be a stationary reversible irreducible chain on $\{1,2,3\}$ whose generator has two distinct nonzero eigenvalues $-\mu_1>-\mu_2$, and let $\ell_1$ be a left eigenvector for $-\mu_1$. Then $(\lambda(0),\lambda(t))$ is nonincreasing in $t\ge0$ in the supermodular order if and only if $\ell_1(1)\ell_1(3)\le0$. If the two nonzero eigenvalues coincide, the chain is stochastically monotone and satisfies \eqref{eq:prop}.
+\end{proposition}
+
+For the star chain the condition $\ell_1(1)\ell_1(3)\le0$ is equivalent to $b_2\ge b_3$ (Remark~\ref{rem:starsign}). Since \eqref{eq:prop} contains the condition of Proposition~\ref{prop:pairs}, the latter is necessary for \eqref{eq:prop}. Linear-programming tests of \eqref{eq:prop} with three and four sampling times agree with it on every chain we tried, including sixty random reversible chains, of which thirty-four are not stochastically monotone and eighteen of those pass (Section~\ref{sec:comp}). We therefore conjecture the following.
+
+\begin{conjecture}\label{conj:three}
+A stationary reversible irreducible chain on $\{1,2,3\}$ with two distinct nonzero eigenvalues satisfies \eqref{eq:prop} if and only if its slow left eigenvector $\ell_1$ satisfies $\ell_1(1)\ell_1(3)\le0$. In particular, the star chain satisfies \eqref{eq:prop} if and only if $b_2\ge b_3$.
+\end{conjecture}
+
+The time-lag monotonicity of pairs $(X_0,X_t)$ for stationary Markov chains that are not monotone has been studied in several orders, among them by Daley \cite{Dal}, Fang, Hu and Joe \cite{FHJ}, Hu and Joe \cite{HJ} and Kulik \cite{Kul}. These results concern two time points; property \eqref{eq:prop} involves the joint law at any finite number of times, which is where the work in the proof of Theorem~\ref{thm:main} lies.
+
+Section~\ref{sec:prelim} collects the reductions, Section~\ref{sec:three} treats reversible three-state chains, Section~\ref{sec:star} proves Theorem~\ref{thm:main}, Section~\ref{sec:fail} proves Theorem~\ref{thm:fail} and Section~\ref{sec:pairs} Proposition~\ref{prop:pairs}. Section~\ref{sec:comp} describes the computer checks.
+
+\section{Reductions}\label{sec:prelim}
+
+Write $V=\{1,2,3\}$. For $x\in V^n$ and coordinates $i\ne j$ with $x_i,x_j\le2$ put
+\[
+\Delta_{ij}\varphi(x)=\varphi(x+e_i+e_j)-\varphi(x+e_i)-\varphi(x+e_j)+\varphi(x).
+\]
+A function $\varphi\colon V^n\to\R$ is supermodular on the lattice $V^n$ if and only if $\Delta_{ij}\varphi\ge0$ for all such $x,i,j$ \cite{Top}.
+
+\begin{remark}\label{rem:relabel}
+Let $X$ take values in $V$. Every supermodular $\varphi\colon\R^n\to\R$ restricts to a supermodular function on $V^n$, and every supermodular $\varphi$ on $V^n$ is the restriction of $\varphi\circ r$, where $r\colon\R^n\to V^n$ maps each coordinate $u$ to the largest element of $V$ not exceeding $u$, or to $1$ if there is none. The map $r$ is nondecreasing in each coordinate and acts coordinatewise, so it preserves joins and meets, and $\varphi\circ r$ is supermodular on $\R^n$. Hence for $V$-valued processes the order $\le_\sm$ may be tested with supermodular functions on $V^n$, and all expectations exist. The same argument applied to a strictly increasing map $h\colon V\to\R$ shows that \eqref{eq:prop} holds for $X$ if and only if it holds for $h(X)$.
+\end{remark}
+
+\begin{lemma}\label{lem:gaps}
+Let $X$ be a stationary $V$-valued process. Suppose that for every $n\ge2$ and every supermodular $\varphi$ on $V^n$ the function
+\[
+F(g_1,\dots,g_{n-1})=\E\varphi\bigl(X(0),X(g_1),X(g_1+g_2),\dots,X(g_1+\dots+g_{n-1})\bigr)
+\]
+is nonincreasing in each $g_k\in(0,\infty)$ when the other gaps are fixed. Then $X$ satisfies \eqref{eq:prop}.
+\end{lemma}
+
+\begin{proof}
+Fix $n$, times $t_1,\dots,t_n$ and a supermodular $\varphi$. Permuting the coordinates of $\varphi$ keeps it supermodular, so we may assume $t_1\le\dots\le t_n$. If two times coincide, the corresponding coordinates of $X$ are equal; the function obtained from $\varphi$ by setting those two coordinates equal is supermodular in the remaining coordinates, because the diagonal map preserves joins and meets. So we may assume $t_1<\dots<t_n$; the case $n=1$ is trivial by stationarity. By stationarity, $\E\varphi(X(ct_1),\dots,X(ct_n))=F(cg_1,\dots,cg_{n-1})$ with $g_k=t_{k+1}-t_k$. For $c_1\le c_2$, passing from $(c_1g_k)_k$ to $(c_2g_k)_k$ by increasing one gap at a time does not increase $F$.
+\end{proof}
+
+Now let $X$ be a stationary Markov chain on $V$ with stationary law $\pi$ and transition kernel $P_t$. Fix $n\ge2$, positive gaps and an index $1\le k\le n-1$, write $s_j=g_1+\dots+g_{j-1}$ for the sampling times ($s_1=0$) and $g=g_k=s_{k+1}-s_k$. For $x,y\in V$ let $A^x$ be a random vector with the law of $(X(s_1),\dots,X(s_{k-1}))$ given $X(s_k)=x$, let $B^y$ have the law of $(X(s_{k+2}),\dots,X(s_n))$ given $X(s_{k+1})=y$, with $A^x$ and $B^y$ independent, and put
+\begin{equation}\label{eq:Phi}
+\Phi(x,y)=\E\varphi\bigl(A^x,x,y,B^y\bigr).
+\end{equation}
+By the Markov property and stationarity,
+\begin{equation}\label{eq:onegap}
+F=\sum_{x,y\in V}\pi(x)P_g(x,y)\Phi(x,y),
+\end{equation}
+and $\Phi$ does not depend on $g$. The law of $A^x$ is that of the time reversal of $X$ started at $x$ and observed at the times $s_k-s_j$, $j<k$; the law of $B^y$ is that of $X$ started at $y$ and observed at the times $s_j-s_{k+1}$, $j>k+1$.
+
+\section{Reversible chains on three states}\label{sec:three}
+
+Let $X$ be reversible and irreducible on $V$ with generator $Q=(q(x,y))$. Then $-Q$ is self-adjoint in $L^2(\pi)$ with eigenvalues $0<\mu_1\le\mu_2$ and an $L^2(\pi)$-orthogonal basis of right eigenvectors $v_0=\1,v_1,v_2$, so that
+\begin{equation}\label{eq:spec}
+P_g(x,y)=\sum_{l=0}^2e^{-\mu_lg}\,\frac{v_l(x)v_l(y)\pi(y)}{\langle v_l,v_l\rangle_\pi},\qquad\mu_0=0.
+\end{equation}
+For $\Phi\colon V^2\to\R$ and $x<y$ write $D_{xy}\Phi=\Phi(x,x)+\Phi(y,y)-\Phi(x,y)-\Phi(y,x)$.
+
+\begin{lemma}\label{lem:spectral}
+Let $F(g)=\sum_{x,y}\pi(x)P_g(x,y)\Phi(x,y)$. Then $F(g)=C+\alpha e^{-\mu_1g}+\beta e^{-\mu_2g}$, where, with $\ell_1=\pi v_1$,
+\begin{equation}\label{eq:alpha}
+\alpha=\frac{1}{\langle v_1,v_1\rangle_\pi}\sum_{x,y}\ell_1(x)\ell_1(y)\Phi(x,y)\quad\text{if }\mu_1<\mu_2,
+\end{equation}
+and in all cases
+\begin{equation}\label{eq:F0}
+\mu_1\alpha+\mu_2\beta=-F'(0)=\sum_{x<y}\pi(x)q(x,y)\,D_{xy}\Phi.
+\end{equation}
+If $\mu_1<\mu_2$, then $F$ is nonincreasing on $(0,\infty)$ if and only if $\alpha\ge0$ and $-F'(0)\ge0$. If $\mu_1=\mu_2$, then $F$ is nonincreasing if and only if $-F'(0)\ge0$.
+\end{lemma}
+
+\begin{proof}
+The form of $F$ and \eqref{eq:alpha} follow from \eqref{eq:spec}. Differentiating \eqref{eq:onegap} at $g=0$ gives $F'(0)=\sum_{x,y}\pi(x)q(x,y)\Phi(x,y)$; using $q(x,x)=-\sum_{y\ne x}q(x,y)$ and $\pi(x)q(x,y)=\pi(y)q(y,x)$ this is $-\sum_{x<y}\pi(x)q(x,y)D_{xy}\Phi$. For $\mu_1<\mu_2$,
+\[
+F'(g)=-e^{-\mu_1g}\bigl(\mu_1\alpha+\mu_2\beta\,u\bigr),\qquad u=e^{-(\mu_2-\mu_1)g}\in(0,1),
+\]
+and an affine function of $u$ is nonnegative on $(0,1)$ if and only if it is nonnegative at $u=0$ and $u=1$. If $\mu_1=\mu_2$, $F'(g)=-(\alpha+\beta)\mu_1e^{-\mu_1g}=F'(0)e^{-\mu_1g}$.
+\end{proof}
+
+Neither condition is automatic: $\Phi$ in \eqref{eq:Phi} is in general not supermodular even when $\varphi$ is (Remark~\ref{rem:notsm}).
+
+\section{The star chain with equal return rates}\label{sec:star}
+
+In this section $b_2=b_3=b$. Put $s=a_2+a_3$, $p=a_2/s$ and $q=a_3/s$, so that $\pi=(b,a_2,a_3)/(b+s)$. One checks directly that
+\[
+v_1=(0,a_3,-a_2),\qquad v_2=\bigl(-s/b,1,1\bigr)
+\]
+are right eigenvectors of $Q$ with eigenvalues $-b$ and $-(s+b)$, so $\mu_1=b<\mu_2=s+b$ and $\ell_1=\frac{a_2a_3}{b+s}(0,1,-1)$. By Lemma~\ref{lem:spectral}, with $\langle v_1,v_1\rangle_\pi=a_2a_3s/(b+s)$,
+\begin{align}
+\alpha&=(\pi_2+\pi_3)\,pq\,\bigl[\Phi(2,2)+\Phi(3,3)-\Phi(2,3)-\Phi(3,2)\bigr],\label{eq:staralpha}\\
+-F'(0)&=b(\pi_2+\pi_3)\bigl[\Phi(1,1)+p\Phi(2,2)+q\Phi(3,3)-p(\Phi(1,2)+\Phi(2,1))-q(\Phi(1,3)+\Phi(3,1))\bigr].\label{eq:starF0}
+\end{align}
+By Lemmas~\ref{lem:gaps} and~\ref{lem:spectral}, Theorem~\ref{thm:main} follows once we show, for every $n$, every supermodular $\varphi$ on $V^n$, every choice of gaps and every $k$, that $\Phi$ of \eqref{eq:Phi} satisfies
+\begin{gather}
+\Phi(2,2)+\Phi(3,3)\ge\Phi(2,3)+\Phi(3,2),\tag{C1}\label{eq:C1}\\
+\Phi(1,1)+p\Phi(2,2)+q\Phi(3,3)\ge p\bigl(\Phi(1,2)+\Phi(2,1)\bigr)+q\bigl(\Phi(1,3)+\Phi(3,1)\bigr).\tag{C2}\label{eq:C2}
+\end{gather}
+
+\subsection{Labelled excursions}
+Let $Y(t)=\1\{X(t)\ne1\}$. When $b_2=b_3$ the time spent at $2$ or at $3$ before returning to $1$ is exponential with rate $b$ whichever leaf is visited, and the choice of leaf at each departure from $1$ is independent of the past and of the holding times. Hence $Y$ is a Markov chain on $\{0,1\}$ with rates $s$ from $0$ to $1$ and $b$ from $1$ to $0$, and, given the path of $Y$, the values of $X$ on the maximal intervals where $Y=1$ (the excursions) are independent and take the values $2$ and $3$ with probabilities $p$ and $q$. For the chain started at $x\in\{2,3\}$ the first excursion has the label $x$ and the later ones are as before. Since $X$ is reversible, its time reversal is again the star chain, so $A^x$ and $B^y$ in \eqref{eq:Phi} both have the law of the star chain started at $x$, respectively $y$, observed at fixed positive times. Both are therefore covered by the following lemma, applied to the times $r_j=s_k-s_j$ ($j<k$) for $A$ and $r_j=s_j-s_{k+1}$ ($j>k+1$) for $B$.
+
+\begin{lemma}\label{lem:coupling}
+Let $r_1,\dots,r_m>0$. On some probability space there are star chains $Z^1,Z^2,Z^3$ with $Z^x(0)=x$, random sets $O\subset I\subset\{1,\dots,m\}$ and a random variable $c$ with $\Pp(c=2)=p$, $\Pp(c=3)=q$, such that, writing $z^x_j=Z^x(r_j)$,
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=*]
+\item $z^2_j=2$ and $z^3_j=3$ for $j\in I$, and $z^2_j=z^3_j$ for $j\notin I$;
+\item $z^1_j=1$ for $j\in I\setminus O$, $z^1_j=c$ for $j\in O$, and $z^1_j=z^2_j$ for $j\notin I$;
+\item $c$ is independent of $\bigl(I,O,(z^2_j)_{j\notin I}\bigr)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $E_s$ and $E_b$ be independent exponential variables with rates $s$ and $b$, let $W$ and $W'$ be two-state chains as above started at $0$ and at $1$, let $(M_i)_{i\ge1}$ be independent labels with law $(p,q)$, and let $c$ have law $(p,q)$, all independent.
+
+If $E_b<E_s$, put $\sigma=E_b$; let $Z^1=1$ on $[0,\sigma)$, let $Z^x=x$ on $[0,\sigma)$ for $x=2,3$, and for $t\ge\sigma$ let all three chains equal the process obtained from $W(t-\sigma)$ by giving its successive excursions the labels $M_1,M_2,\dots$. Put $O=\emptyset$.
+
+If $E_s<E_b$, let $\sigma=E_s+T$, where $T$ is the first time $W'$ hits $0$. Let $Z^x=x$ on $[0,\sigma)$ for $x=2,3$; let $Z^1=1$ on $[0,E_s)$ and $Z^1=c$ on $[E_s,\sigma)$; for $t\ge\sigma$ let all three chains equal the process obtained from $W'(t-E_s)$, whose first excursion has ended at time $\sigma-E_s$, by labelling its later excursions $M_1,M_2,\dots$. Put $O=\{j:E_s\le r_j<\sigma\}$.
+
+In both cases let $I=\{j:r_j<\sigma\}$. Properties (i) and (ii) hold by construction, and (iii) holds because $c$ is used only for the labels on $O$ and is independent of $E_s,E_b,W,W',(M_i)$, which determine $I$, $O$ and the values outside $I$.
+
+It remains to check that each $Z^x$ is a star chain started at $x$. The skeleton $\1\{Z^x\ne1\}$ is the classical coupling of two-state chains started at $0$ and at $1$: the chain started at $1$ leaves at time $E_b$ if $E_b<E_s$, and otherwise at time $E_s+T$, where, by the memoryless property, $E_s+T$ has the same law as the corresponding time $E_s+(E_b-E_s)$ given $E_s<E_b$; the chain started at $0$ is treated in the same way. So each skeleton is a two-state chain with rates $s$ and $b$ started at the right state. The labels of the excursions of $Z^1$ are $c,M_1,M_2,\dots$ or $M_1,M_2,\dots$, and those of $Z^x$, $x\in\{2,3\}$, are $x,M_1,M_2,\dots$; in each case they are independent of the skeleton with the right laws. By the description of the star chain through labelled excursions, $Z^x$ is a star chain started at $x$.
+\end{proof}
+
+\subsection{Condition (C1)}
+Take the coupling of Lemma~\ref{lem:coupling} for the prefix times, giving $(I,O,c)$ and values $z^x$, and an independent copy for the suffix times, giving $(J,O',c')$ and values $w^y$. Put $A^x=(z^x_j)$ and $B^y=(w^y_j)$ in their natural order. For $u,v\in\R$ let $\zeta(u,v)\in\R^n$ have the coordinate $u$ at the positions of $I$ and at position $k$, the coordinate $v$ at the positions of $J$ and at position $k+1$, and the common values $z^2_j$, $w^2_j$ elsewhere, and put $\psi(u,v)=\varphi(\zeta(u,v))$. The map $(u,v)\mapsto\zeta(u,v)$ preserves joins and meets, so $\psi$ is supermodular on $\{2,3\}^2$ for every outcome. Since $\Phi(x,y)=\E\psi(x,y)$ for $x,y\in\{2,3\}$ by Lemma~\ref{lem:coupling}(i),
+\[
+\Phi(2,2)+\Phi(3,3)-\Phi(2,3)-\Phi(3,2)=\E\bigl[\psi(2,2)+\psi(3,3)-\psi(2,3)-\psi(3,2)\bigr]\ge0.
+\]
+
+\subsection{Condition (C2)}
+With the same couplings, let $\zeta(u,u',v,v')$ have the coordinate $u$ at the positions of $(I\setminus O)\cup\{k\}$, $u'$ at those of $O$, $v$ at those of $(J\setminus O')\cup\{k+1\}$, $v'$ at those of $O'$, and the common values elsewhere, and put $\psi(u,u',v,v')=\varphi(\zeta(u,u',v,v'))$. Again $\psi$ is supermodular on $V^4$ for every outcome (if $O$ or $O'$ is empty, $\psi$ does not depend on the corresponding argument). By Lemma~\ref{lem:coupling}, for $x,y\in\{2,3\}$,
+\begin{align*}
+\Phi(x,y)&=\E\psi(x,x,y,y), & \Phi(1,y)&=\E\psi(1,c,y,y),\\
+\Phi(x,1)&=\E\psi(x,x,1,c'), & \Phi(1,1)&=\E\psi(1,c,1,c').
+\end{align*}
+Write $w_2=p$, $w_3=q$. Using $w_2+w_3=1$ for the term $\Phi(1,1)$, the difference of the two sides of \eqref{eq:C2} is
+\[
+\E\sum_{l\in\{2,3\}}w_l\bigl[\psi(l,l,l,l)-\psi(l,l,1,c')-\psi(1,c,l,l)+\psi(1,c,1,c')\bigr].
+\]
+By Lemma~\ref{lem:coupling}(iii), $c$ and $c'$ are independent of each other and of the random function $\psi$, so this equals $\E S_p(\psi)$, where for a function $\psi$ on $V^4$
+\begin{equation}\label{eq:Sp}
+S_p(\psi)=\sum_{l,\gamma,\gamma'\in\{2,3\}}w_lw_\gamma w_{\gamma'}\bigl[\psi(l,l,l,l)-\psi(l,l,1,\gamma')-\psi(1,\gamma,l,l)+\psi(1,\gamma,1,\gamma')\bigr].
+\end{equation}
+Condition \eqref{eq:C2} therefore follows from the next lemma.
+
+\begin{lemma}\label{lem:certificate}
+For every supermodular $\psi$ on $V^4$ and every $p\in[0,1]$, $S_p(\psi)\ge0$.
+\end{lemma}
+
+\begin{proof}
+For $k=0,1,2,3$ let $T_k$ be the sum, over the $\binom3k$ triples $(l,\gamma,\gamma')\in\{2,3\}^3$ with exactly $k$ entries equal to $2$, of the corresponding brackets in \eqref{eq:Sp}, without the weights. Then
+\begin{equation}\label{eq:cubic}
+S_p=p^3T_3+p^2qT_2+pq^2T_1+q^3T_0,
+\end{equation}
+and each $T_k$ is a sum of elementary increasing differences of $\psi$ (writing $\Delta_{ij}(x)$ for $\Delta_{ij}\psi(x)$):
+\begin{align*}
+T_3={}&\Delta_{13}(1,2,1,2),\\
+T_2={}&\Delta_{13}(1,2,1,2)+\Delta_{13}(1,2,1,3)+\Delta_{13}(1,2,2,3)+\Delta_{13}(1,3,1,2)+\Delta_{24}(2,2,2,2)\\
+&+\Delta_{23}(2,2,2,3)+\Delta_{14}(2,3,1,2)+\Delta_{13}(2,3,1,3)+\Delta_{13}(2,3,2,3),\\
+T_1={}&\Delta_{13}(1,2,1,3)+\Delta_{13}(1,2,2,3)+\Delta_{13}(1,3,1,2)+\Delta_{13}(1,3,1,3)+\Delta_{13}(1,3,2,3)\\
+&+\Delta_{24}(2,2,2,2)+\Delta_{13}(2,2,2,3)+\Delta_{13}(2,3,1,2)+\Delta_{13}(2,3,1,3)+\Delta_{14}(2,3,2,2)\\
+&+\Delta_{13}(2,3,2,3)+\Delta_{23}(3,2,2,3),\\
+T_0={}&\Delta_{13}(1,3,1,3)+\Delta_{13}(1,3,2,3)+\Delta_{13}(2,3,1,3)+\Delta_{13}(2,3,2,3).
+\end{align*}
+Each identity is checked by expanding both sides into values of $\psi$; the computer checks of Section~\ref{sec:comp} and the Lean file do this exactly. Since $\Delta_{ij}\psi\ge0$ and $p,q\ge0$, the lemma follows.
+\end{proof}
+
+For $p=q=1/2$ the four identities give $8S_{1/2}=T_0+T_1+T_2+T_3$, a sum of $26$ elementary increasing differences. In this sum the terms with $l=3$ are each nonnegative, since $(3,3)$ dominates $(1,\gamma)$ and $(1,\gamma')$; the terms with $l=2$ and $\gamma=3$ or $\gamma'=3$ are not, and only the whole sum is.
+
+\begin{proof}[Proof of Theorem~\textup{\ref{thm:main}}]
+By \eqref{eq:staralpha}, \eqref{eq:starF0} and the two subsections, $\alpha\ge0$ and $-F'(0)\ge0$ for every $\Phi$ of the form \eqref{eq:Phi}. Lemma~\ref{lem:spectral} shows that $F$ is nonincreasing in each gap, and Lemma~\ref{lem:gaps} gives \eqref{eq:prop}. The chain is not stochastically monotone, as noted in the introduction.
+\end{proof}
+
+\begin{remark}\label{rem:notsm}
+The route of \cite{BR} would need $\Phi$ to be supermodular. It is not in general: at $n=3$, a linear program over supermodular $\varphi$ on $V^3$ with $|\varphi|\le1$ finds a star chain and gaps for which $\min_{x<y}D_{xy}\Phi$ is negative. The two conditions above use only the specific combinations of values of $\Phi$ that enter \eqref{eq:staralpha} and \eqref{eq:starF0}.
+\end{remark}
+
+\section{Proof of Theorem~\ref{thm:fail}}\label{sec:fail}
+
+Let $-\mu$ be a nonzero eigenvalue of $Q$ in \eqref{eq:star} with right eigenvector $v$. The rows of the leaves give $b_i(v(1)-v(i))=-\mu v(i)$, that is,
+\begin{equation}\label{eq:leaf}
+(b_i-\mu)v(i)=b_iv(1),\qquad i=2,3.
+\end{equation}
+The matrix $\Pi^{1/2}(-Q)\Pi^{-1/2}$, with $\Pi=\mathrm{diag}(\pi)$, is symmetric with eigenvalues $0<\mu_1\le\mu_2$, and its principal submatrix on the leaves is $\mathrm{diag}(b_2,b_3)$. By Cauchy's interlacing theorem \cite{HoJo}, $\min(b_2,b_3)\le\mu_1\le\max(b_2,b_3)\le\mu_2$.
+
+Let $b_3>b_2$. If $\mu=\mu_1$ were equal to $b_3$, \eqref{eq:leaf} with $i=3$ would give $v(1)=0$, then \eqref{eq:leaf} with $i=2$ would give $v(2)=0$, and the row of $1$, which reads $-(a_2+a_3)v(1)+a_2v(2)+a_3v(3)=-\mu v(1)$, would give $v(3)=0$. If $\mu_1=b_2$, the same three rows, taken in the order leaf $2$, leaf $3$, centre, give $v(1)=v(3)=v(2)=0$. Hence $b_2<\mu_1<b_3\le\mu_2$, and $\mu_1<\mu_2$. For $\mu=\mu_1$, \eqref{eq:leaf} gives $v_1(1)\ne0$ and $v_1(3)=b_3v_1(1)/(b_3-\mu_1)$, so $v_1(1)v_1(3)>0$.
+
+By \eqref{eq:spec}, $P_t(1,3)=\pi(3)+\kappa_1e^{-\mu_1t}+\kappa_2e^{-\mu_2t}$ with $\kappa_1=\pi(3)v_1(1)v_1(3)/\langle v_1,v_1\rangle_\pi>0$. Since $\mu_1<\mu_2$, the derivative $-\mu_1\kappa_1e^{-\mu_1t}-\mu_2\kappa_2e^{-\mu_2t}$ is negative for all large $t$, so
+\[
+G(t)=\Pp\bigl(\lambda(0)\le1,\ \lambda(t)\le2\bigr)=\pi(1)\bigl(1-P_t(1,3)\bigr)
+\]
+is strictly increasing for large $t$. The function $\varphi(x,y)=\1\{x\le1\}\1\{y\le2\}$ is a product of two nonnegative nonincreasing functions and hence supermodular. Choose $t<t'$ with $G(t)<G(t')$. With the times $0,t$ and the speeds $c_1=1$, $c_2=t'/t$, \eqref{eq:prop} would require $\E\varphi(\lambda(0),\lambda(t))\ge\E\varphi(\lambda(0),\lambda(t'))$, that is $G(t)\ge G(t')$. \qed
+
+\begin{remark}\label{rem:starsign}
+The same computation gives the sign of $\ell_1(1)\ell_1(3)=\pi(1)\pi(3)v_1(1)v_1(3)$ for every star chain: it is positive if $b_3>b_2$, zero if $b_2=b_3$ (then $v_1(1)=0$), and negative if $b_2>b_3$, since then $b_3<\mu_1<b_2$. So the condition of Proposition~\ref{prop:pairs} holds for the star chain exactly when $b_2\ge b_3$.
+\end{remark}
+
+\section{Pairs: proof of Proposition~\ref{prop:pairs}}\label{sec:pairs}
+
+Take $n=2$ and $\Phi=\varphi$ in Lemma~\ref{lem:spectral}, so that $F(t)=\E\varphi(\lambda(0),\lambda(t))$. For supermodular $\varphi$ each $D_{xy}\varphi$ with $x<y$ is nonnegative (apply the definition to the points $(x,y)$ and $(y,x)$), so $-F'(0)\ge0$ by \eqref{eq:F0}. If $\mu_1=\mu_2$, this already shows that $F$ is nonincreasing; moreover $-Q$ then acts as $\mu_1$ on the $L^2(\pi)$-orthogonal complement of the constants, so $Q=\mu_1(\1\pi-I)$ and $P_t=e^{-\mu_1t}I+(1-e^{-\mu_1t})\1\pi$. This kernel is stochastically monotone and the chain is reversible, so \eqref{eq:prop} holds by \cite{BR}.
+
+Let $\mu_1<\mu_2$. By Lemma~\ref{lem:spectral} the pair is nonincreasing in $t$ if and only if $\sum_{x,y}\ell_1(x)\ell_1(y)\varphi(x,y)\ge0$ for every supermodular $\varphi$ on $V^2$. Every such $\varphi$ can be written as
+\[
+\varphi(x,y)=\varphi(x,1)+\varphi(1,y)-\varphi(1,1)+\sum_{i,j\in\{2,3\}}\Delta_{12}\varphi(i-1,j-1)\,\1\{x\ge i\}\1\{y\ge j\},
+\]
+with $\Delta_{12}\varphi\ge0$, and conversely every function of this form with nonnegative coefficients is supermodular. Since $\sum_x\ell_1(x)=\langle v_1,\1\rangle_\pi=0$, the first three terms contribute nothing, and the indicator $\1\{x\ge i\}\1\{y\ge j\}$ contributes $L(i)L(j)$, where $L(i)=\sum_{x\ge i}\ell_1(x)$. Here $L(3)=\ell_1(3)$ and $L(2)=-\ell_1(1)$. The products $L(2)^2$ and $L(3)^2$ are nonnegative and $L(2)L(3)=-\ell_1(1)\ell_1(3)$, so the sum is nonnegative for every supermodular $\varphi$ if and only if $\ell_1(1)\ell_1(3)\le0$. \qed
+
+For $n=2$ there is only one gap and \eqref{eq:prop} for pairs is exactly the monotonicity in $t$ of $(\lambda(0),\lambda(t))$, so the condition of Proposition~\ref{prop:pairs} is necessary for \eqref{eq:prop}. Conjecture~\ref{conj:three} asserts that it is also sufficient. In the language of Lemma~\ref{lem:spectral}, the conjecture says that the two conditions $\alpha\ge0$ and $-F'(0)\ge0$ for all conditional functions $\Phi$ of the form \eqref{eq:Phi} follow from the condition $\alpha\ge0$ for $\Phi=\varphi$. For the star chain with $b_2>b_3$ the skeleton $\1\{\lambda\ne1\}$ is no longer a Markov chain, so the coupling of Lemma~\ref{lem:coupling} is not available.
+
+\section{Computations}\label{sec:comp}
+
+The script \texttt{checks.py} in the repository performs the following checks. All of them pass.
+\begin{enumerate}[label=(\Alph*),leftmargin=*]
+\item In integer arithmetic, the four identities in the proof of Lemma~\ref{lem:certificate}, and $T_0+T_1+T_2+T_3=8S_{1/2}$.
+\item In exact symbolic arithmetic (SymPy), for the star chain with $b_2=b_3$: the stationary law, reversibility, the eigenvectors $v_1,v_2$ and their orthogonality, the spectral form \eqref{eq:spec}, and the formulas \eqref{eq:staralpha}, \eqref{eq:starF0} and \eqref{eq:F0}.
+\item At $a_2=a_3=b_2=1$, $b_3=2$, in 40-digit arithmetic: $G(2)=0.316976\ldots<G(6)=0.319988\ldots$, as in Theorem~\ref{thm:fail}; $\mu_1=1.381966\ldots$ lies strictly between $b_2$ and $b_3$ and $\mu_2=3.618034\ldots$; and with $b_2$ and $b_3$ exchanged $G$ is nonincreasing on the grid $t=0,0.1,\dots,10$.
+\item Floating-point linear programs: for fixed times $t_1,\dots,t_n$, the maximum of
+\[
+\E\varphi\bigl(\lambda_{c_2}(t_1),\dots,\lambda_{c_2}(t_n)\bigr)-\E\varphi\bigl(\lambda_{c_1}(t_1),\dots,\lambda_{c_1}(t_n)\bigr)
+\]
+over supermodular $\varphi$ on $V^n$ with $|\varphi|\le1$ is computed with the HiGHS solver, for $n=3$ and $4$, two layouts of times each and the speed pairs $(c_1,c_2)=(0.25,0.5),(0.5,1),(1,2),(2,4)$. The maximum is at most $2\cdot10^{-15}$ for six star chains with $b_2=b_3$ and four with $b_2>b_3$, and for a monotone birth--death chain; it is $3.2\cdot10^{-2}$ and $4.6\cdot10^{-2}$ for the star chains $(a_2,a_3,b_2,b_3)=(1,1,1,2)$ and $(1,1,1,4)$, and $6.1\cdot10^{-2}$ for the cyclic chain $1\to2\to3\to1$ with unit rates.
+\item For sixty random reversible chains on $V$, the test of (D) passes, with maximum at most $10^{-9}$, exactly for the chains with $\ell_1(1)\ell_1(3)\le0$. Thirty-four of the sixty are not stochastically monotone, and eighteen of these pass. The chain with $Q=\mu(\1\pi-I)$ is stochastically monotone and passes.
+\end{enumerate}
+The tests in (D) and (E) are exhaustive over supermodular functions on the finite lattice $V^n$ but use floating-point arithmetic; they are evidence for Conjecture~\ref{conj:three} and are not used in the proofs.
+
+The file \texttt{StarCertificates.lean}, checked with Lean~4 \cite{MU21} and Mathlib \cite{Mathlib20}, proves the four identities of Lemma~\ref{lem:certificate} for an arbitrary function $\psi\colon\mathbb N^4\to\mathbb Q$, and proves $S_p(\psi)\ge0$ for $p,q\ge0$ whenever all mixed second differences of $\psi$ are nonnegative.
+
+\section*{Acknowledgements and funding}
+The research presented in this paper was supported by the European Research
+Council (ERC) under the European Union's Horizon Europe research and
+innovation programme (grant agreement No.~101041711), by the Simons
+Foundation as part of the Collaboration on the Mathematical and Scientific
+Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by
+the Israel Science Foundation (grant number 2258/19), and by the Israel
+Science Foundation (ISF Grant 4101/25). Computational resources were
+provided in part by Google Cloud through its education credits program
+(credit 530550103).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital. These entities are included
+in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics. On 10 September 2026 an agent running in Claude Code (Anthropic) found the star chain, the two conditions of Section~\ref{sec:star} with the decomposition of Lemma~\ref{lem:certificate}, Theorem~\ref{thm:fail} and the criterion of Proposition~\ref{prop:pairs}. On 15 October 2026 Claude Opus~5.5 (Anthropic), working in Claude Code, checked the proofs line by line, wrote out the coupling of Lemma~\ref{lem:coupling} and the case of a repeated eigenvalue, and wrote the computer checks, the Lean file and the paper in its present form. Two agents running in OpenAI's Codex (GPT-6.1 Sol) read the proofs and repeated the computations independently. The author directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Data availability}
+No data were used. The code and the Lean file are available at\\ \url{https://github.com/yspennstate/supermodular-speed-ordering}.
+
+\begin{thebibliography}{10}
+
+\bibitem{BR}
+N.~B\"auerle and T.~Rolski, A monotonicity result for the workload in Markov-modulated queues, \emph{J. Appl. Probab.} \textbf{35} (1998), 741--747.
+
+\bibitem{Dal}
+D.~J.~Daley, Stochastically monotone Markov chains, \emph{Z. Wahrscheinlichkeitstheorie verw. Gebiete} \textbf{10} (1968), 305--317.
+
+\bibitem{FHJ}
+Y.~Fang, T.~Hu and H.~Joe, On the decrease in dependence with lag for stationary Markov chains, \emph{Probab. Engrg. Inform. Sci.} \textbf{8} (1994), 385--401.
+
+\bibitem{HoJo}
+R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge University Press, Cambridge, 2013.
+
+\bibitem{HJ}
+T.~Hu and H.~Joe, Monotonicity of positive dependence with time for stationary reversible Markov chains, \emph{Probab. Engrg. Inform. Sci.} \textbf{9} (1995), 227--237.
+
+\bibitem{Kul}
+R.~Kulik, Monotonicity in lag for nonmonotone Markov chains, \emph{Probab. Engrg. Inform. Sci.} \textbf{18} (2004), 485--492.
+
+\bibitem{Les}
+L.~Leskel\"a, Ross's second conjecture and supermodular stochastic ordering, \emph{Queueing Syst.} \textbf{100} (2022), 213--215.
+
+\bibitem{MU21}
+L.~de~Moura and S.~Ullrich, The Lean~4 theorem prover and programming language, in \emph{Automated Deduction -- CADE~28}, Lecture Notes in Comput. Sci. \textbf{12699}, Springer, 2021, 625--635.
+
+\bibitem{Mathlib20}
+The mathlib Community, The Lean mathematical library, in \emph{Proceedings of the 9th ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2020)}, ACM, 2020, 367--381.
+
+\bibitem{Ros}
+S.~M.~Ross, Average delay in queues with non-stationary Poisson arrivals, \emph{J. Appl. Probab.} \textbf{15} (1978), 602--609.
+
+\bibitem{Shm}
+Y.~Shmalo, Finite-state counterexamples to Ross's second queueing conjecture, arXiv:2609.25084 (2026).
+
+\bibitem{Top}
+D.~M.~Topkis, Minimizing a submodular function on a lattice, \emph{Oper. Res.} \textbf{26} (1978), 305--321.
+
+\end{thebibliography}
+
+\end{document}
