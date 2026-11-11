@@ -47,7 +47,7 @@ for all $n\ge1$, all $t_1,\dots,t_n\in\R$ and all supermodular $\varphi\colon\R^
 \begin{equation}\label{eq:prop}
 c_1\le c_2\quad\Longrightarrow\quad\lambda_{c_1}\ge_\sm\lambda_{c_2}.
 \end{equation}
-Property \eqref{eq:prop} comes from queueing theory. Ross's second conjecture \cite{Ros} concerns a single-server queue whose arrivals form a Cox process with intensity $\lambda_c$ and whose service times are independent and identically distributed and independent of the arrivals; it asserts that the mean stationary workload $w(c)$ is nonincreasing in $c$. B\"auerle and Rolski \cite{BR} showed that \eqref{eq:prop} implies this monotonicity when $\lambda\ge0$, the service times have a finite second moment and the queue is stable. Finite-state chains for which $w(c)$ is not monotone are given in \cite{Shm}.
+Property \eqref{eq:prop} comes from queueing theory. Ross's second conjecture \cite{Ros} concerns a single-server queue whose arrivals form a Cox process with intensity $\lambda_c$ and whose service times are independent and identically distributed and independent of the arrivals; it asserts that the mean stationary workload $w(c)$ is nonincreasing in $c$. Ross \cite{Ros} proved it when the intensity is a two-state chain with one state equal to $0$, and Chang, Chao and Pinedo \cite{CCP} proved it for finite-state chains whose rate of jumping from $i$ to $j\ne i$ depends only on $i$. B\"auerle and Rolski \cite{BR} showed that \eqref{eq:prop} implies this monotonicity when $\lambda\ge0$, the service times have a finite second moment and the queue is stable. Finite-state chains for which $w(c)$ is not monotone are given in \cite{Shm}.
 
 A continuous-time Markov chain on a finite set of reals is \emph{stochastically monotone} if its transition kernel $P_t(x,\cdot)$ is nondecreasing in $x$ in the usual stochastic order for every $t\ge0$. B\"auerle and Rolski \cite{BR} proved \eqref{eq:prop} for every stationary finite-state chain such that both the chain and its time reversal are stochastically monotone. Leskel\"a \cite{Les} remarks that outside stochastically monotone chains little seems to be known, even on three states, and asks (\cite[Problem~3]{Les}; Problem~2 in arXiv:2204.11856):
 
@@ -328,6 +328,9 @@ The paper is part of the Math Brain project, whose public repository is \url{htt
 
 \bibitem{BR}
 N.~B\"auerle and T.~Rolski, A monotonicity result for the workload in Markov-modulated queues, \emph{J. Appl. Probab.} \textbf{35} (1998), 741--747.
+
+\bibitem{CCP}
+C.-S.~Chang, X.~Chao and M.~Pinedo, Monotonicity results for queues with doubly stochastic Poisson arrivals: Ross's conjecture, \emph{Adv. in Appl. Probab.} \textbf{23} (1991), 210--228.
 
 \bibitem{Dal}
 D.~J.~Daley, Stochastically monotone Markov chains, \emph{Z. Wahrscheinlichkeitstheorie verw. Gebiete} \textbf{10} (1968), 305--317.
